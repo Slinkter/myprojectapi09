@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const GlobalContext = createContext(null);
 
-const GlobalState = () => {
+const GlobalState = ({ children }) => {
   const [searchParam, setSearchParam] = useState("");
   const [loading, setLoading] = useState(false);
   const [recipeList, setRecipeList] = useState([]);
@@ -12,10 +12,56 @@ const GlobalState = () => {
 
   const navigate = useNavigate();
 
-  async function handleSubmit(e) {}
-  function handleAddToFavorite(getCurrentItem) {}
+  async function handleSubmit(e) {
+    e.prenvetDefaul();
+    try {
+      const url_api = `https://forkify-api.herokuapp.com/api/search?q=${searchParam}`;
+      const res = await fetch(url_api);
+      const data = await res.json();
+      if (data?.data?.recipes) {
+        setRecipeDetailsData();
+        setLoading(false);
+        setSearchParam("");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setSearchParam("");
+    }
+  }
+  function handleAddToFavorite(getCurrentItem) {
+    console.log(getCurrentItem);
+    let copyFavoritesList = [...favoritesList];
+    const index = copyFavoritesList.findIndex(
+      (item) => item.id === getCurrentItem.id
+    );
 
-  return <div>GlobalState</div>;
+    if (index === -1) {
+      copyFavoritesList.push(getCurrentItem);
+    } else {
+      copyFavoritesList.splice(index);
+    }
+    setFavoritesList(copyFavoritesList);
+  }
+
+  return (
+    <GlobalContext.Provider
+      value={{
+        searchParam,
+        loading,
+        recipeList,
+        recipeDetailsData,
+        favoritesList,
+        setSearchParam,
+        setRecipeDetailsData,
+        handleSubmit,
+        handleAddToFavorite,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
 };
 
 export default GlobalState;
