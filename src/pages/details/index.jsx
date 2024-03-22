@@ -29,7 +29,7 @@ const Details = () => {
   return (
     <div className="container  mx-auto  py-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
       <div className="row-start-2  lg:row-start-auto">
-        <div className="h-full overflow-hidden rounded-xl group ">
+        <div className="h-96 overflow-hidden rounded-xl group ">
           <img
             src={recipeDetailsData?.image_url}
             alt="img"
