@@ -7,8 +7,8 @@ import Details from "./pages/details";
 
 const App = () => {
   return (
-    <div className="">
-      <div className="min-h-screen p-6 bg-white text-gray-600 text-lg  border-red-800 border-4 ">
+    <div className=" ">
+      <div className="min-h-screen p-6  text-gray-700 text-lg  border-red-800 border-8 bg-gray-100">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

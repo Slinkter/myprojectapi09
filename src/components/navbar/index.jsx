@@ -7,8 +7,8 @@ const Navbar = () => {
     useContext(GlobalContext);
 
   return (
-    <nav className="flex justify-between items-center bg-gray-100 py-8 container mx-auto flex-col lg:flex-row gap-5 lg:gap-0">
-      <h2 className="bg-yellow-400  text-2xl font-semibold">
+    <nav className="flex justify-between items-center py-8 container mx-auto flex-col lg:flex-row gap-5 lg:gap-0">
+      <h2 className="  text-2xl font-semibold">
         <NavLink to={"/"}>FoodRecipe</NavLink>
       </h2>
       <form onSubmit={handleSubmit}>

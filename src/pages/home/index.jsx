@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { GlobalContext } from "../../context";
 import RecipeItem from "../../components/recipe-item";
 
@@ -7,10 +7,8 @@ const Home = () => {
 
   if (loading) return <div> Loading ... Please wait!</div>;
 
-  console.log(recipeList);
-
   return (
-    <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10">
+    <div className="container flex flex-wrap justify-center items-center gap-10 py-8  mx-auto  ">
       {recipeList && recipeList.length > 0 ? (
         recipeList.map((item) => <RecipeItem key={item} item={item} />)
       ) : (
