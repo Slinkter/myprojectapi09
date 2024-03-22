@@ -7,6 +7,8 @@ const Home = () => {
 
   if (loading) return <div> Loading ... Please wait!</div>;
 
+  console.log(recipeList);
+
   return (
     <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10">
       {recipeList && recipeList.length > 0 ? (

@@ -13,13 +13,15 @@ const GlobalState = ({ children }) => {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    e.prenvetDefaul();
+    e.preventDefault();
     try {
       const url_api = `https://forkify-api.herokuapp.com/api/search?q=${searchParam}`;
       const res = await fetch(url_api);
       const data = await res.json();
-      if (data?.data?.recipes) {
-        setRecipeDetailsData();
+
+      if (data?.recipes) {
+        console.log(data.recipes);
+        setRecipeDetailsData(data.recipes);
         setLoading(false);
         setSearchParam("");
         navigate("/");
