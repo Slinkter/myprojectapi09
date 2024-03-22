@@ -21,7 +21,7 @@ const GlobalState = ({ children }) => {
 
       if (data?.recipes) {
         console.log(data.recipes);
-        setRecipeDetailsData(data.recipes);
+        setRecipeList(data?.recipes);
         setLoading(false);
         setSearchParam("");
         navigate("/");
@@ -36,7 +36,7 @@ const GlobalState = ({ children }) => {
     console.log(getCurrentItem);
     let copyFavoritesList = [...favoritesList];
     const index = copyFavoritesList.findIndex(
-      (item) => item.id === getCurrentItem.id
+      (item) => item.recipe_id === getCurrentItem.recipe_id
     );
 
     if (index === -1) {

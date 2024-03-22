@@ -16,6 +16,7 @@ const Home = () => {
       ) : (
         <div>
           <p>Nothing to show Please search something</p>
+          <pre>{JSON.stringify(recipeList, null, 2)}</pre>
         </div>
       )}
     </div>
