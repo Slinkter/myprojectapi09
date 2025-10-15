@@ -1,5 +1,9 @@
+
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { fetchRecipes } from "../api";
+import { suggestionList } from "../constants/suggestions";
 
 export const GlobalContext = createContext(null);
 
@@ -7,35 +11,29 @@ const GlobalState = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [searchParam, setSearchParam] = useState("");
     const [recipeList, setRecipeList] = useState([]);
-    const [recipeDetailsData, setRecipeDetailsData] = useState(null);
     const [favoritesList, setFavoritesList] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoading(true);
+        setShowSuggestions(false);
         try {
-            //
-            const url_api = `https://forkify-api.herokuapp.com/api/search?q=${searchParam}`;
-            //
-            const res = await fetch(url_api);
-            console.log("res : ", res);
-            const data = await res.json();
-            console.log("data : ", data);
-            //
-            if (data?.recipes) {
-                setRecipeList(data?.recipes);
+            const recipes = await fetchRecipes(searchParam);
+            if (recipes) {
+                setRecipeList(recipes);
                 navigate("/");
             }
         } catch (error) {
             console.log(error);
         } finally {
             setLoading(false);
-            setSearchParam("");
         }
     }
+
     function handleAddToFavorite(getCurrentItem) {
-        console.log(getCurrentItem);
-        //
         let copyFavoritesList = [...favoritesList];
         const index = copyFavoritesList.findIndex(
             (item) => item.recipe_id === getCurrentItem.recipe_id
@@ -44,9 +42,25 @@ const GlobalState = ({ children }) => {
         if (index === -1) {
             copyFavoritesList.push(getCurrentItem);
         } else {
-            copyFavoritesList.splice(index);
+            copyFavoritesList = copyFavoritesList.filter(
+                (item) => item.recipe_id !== getCurrentItem.recipe_id
+            );
         }
         setFavoritesList(copyFavoritesList);
+    }
+
+    function handleSearch(value) {
+        setSearchParam(value);
+        if (value) {
+            const filteredSuggestions = suggestionList.filter((item) =>
+                item.toLowerCase().includes(value.toLowerCase())
+            );
+            setSuggestions(filteredSuggestions);
+            setShowSuggestions(true);
+        } else {
+            setSuggestions([]);
+            setShowSuggestions(false);
+        }
     }
 
     return (
@@ -55,12 +69,14 @@ const GlobalState = ({ children }) => {
                 searchParam,
                 loading,
                 recipeList,
-                recipeDetailsData,
                 favoritesList,
+                suggestions,
+                showSuggestions,
                 setSearchParam,
-                setRecipeDetailsData,
+                setShowSuggestions,
                 handleSubmit,
                 handleAddToFavorite,
+                handleSearch,
             }}
         >
             {children}
@@ -68,4 +84,15 @@ const GlobalState = ({ children }) => {
     );
 };
 
+GlobalState.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
 export default GlobalState;
+
+
+
+
+
+
+

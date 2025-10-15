@@ -1,20 +1,22 @@
+
 import { useContext } from "react";
 import { GlobalContext } from "../../context";
 import RecipeItem from "../../components/recipe-item";
 
 const Home = () => {
-    const { recipeList, loading } = useContext(GlobalContext);
+    const { recipeList, loading, searchParam } = useContext(GlobalContext);
 
-    if (loading) return <div> Loading ... Please wait!</div>;
+    if (loading) return <div className="loading-spinner"></div>;
 
     return (
-        <div className="container flex flex-wrap justify-center items-center gap-10 py-8  mx-auto  ">
+        <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10 animate-fade-in">
             {recipeList && recipeList.length > 0 ? (
-                recipeList.map((item) => <RecipeItem key={item} item={item} />)
+                recipeList.map((item) => <RecipeItem key={item.recipe_id} item={item} />)
             ) : (
-                <div>
-                    <p>Nothing to show Please search something</p>
-                    <pre>{JSON.stringify(recipeList, null, 2)}</pre>
+                <div className="info-message">
+                    <p>
+                        {searchParam ? `No recipes found for "${searchParam}"` : "Nothing to show. Please search for a recipe."}
+                    </p>
                 </div>
             )}
         </div>
@@ -22,3 +24,4 @@ const Home = () => {
 };
 
 export default Home;
+

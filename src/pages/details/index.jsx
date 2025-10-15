@@ -1,76 +1,79 @@
-import React, { useContext, useEffect } from "react";
+
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GlobalContext } from "../../context";
+import { fetchRecipeDetails } from "../../api";
 
 const Details = () => {
-  const { id } = useParams();
-  const {
-    recipeDetailsData,
-    setRecipeDetailsData,
-    favoritesList,
-    handleAddToFavorite,
-  } = useContext(GlobalContext);
+    const { id } = useParams();
+    const { favoritesList, handleAddToFavorite } = useContext(GlobalContext);
+    const [recipeDetailsData, setRecipeDetailsData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function getRecipeDetails() {
-      const url_api = `https://forkify-api.herokuapp.com/api/get?rId=${id}`;
-      const res = await fetch(url_api);
-      const data = await res.json();
-      console.log(data.recipe);
-      if (data) {
-        setRecipeDetailsData(data.recipe);
-      }
-    }
+    useEffect(() => {
+        async function getRecipeDetails() {
+            try {
+                const recipe = await fetchRecipeDetails(id);
+                setRecipeDetailsData(recipe);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        }
 
-    getRecipeDetails();
-  }, []);
+        getRecipeDetails();
+    }, [id]);
 
-  console.log(favoritesList);
-  return (
-    <div className="container  mx-auto  py-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
-      <div className="row-start-2  lg:row-start-auto">
-        <div className="h-96 overflow-hidden rounded-xl group ">
-          <img
-            src={recipeDetailsData?.image_url}
-            alt="img"
-            className="w-full h-full object-cover block group-hover:scale-105 duration-300"
-          />
+    if (loading) return <div className="loading-spinner"></div>;
+    if (!recipeDetailsData) return <div className="info-message">No recipe details found.</div>;
+
+    return (
+        <div className="container mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="h-96 lg:h-auto lg:sticky top-10">
+                <div className="h-full overflow-hidden rounded-xl group">
+                    <img
+                        src={recipeDetailsData.image_url}
+                        alt={recipeDetailsData.title}
+                        className="w-full h-full object-cover block group-hover:scale-105 duration-300"
+                    />
+                </div>
+            </div>
+            <div className="flex flex-col gap-3">
+                <span className="text-sm text-accent font-medium">
+                    {recipeDetailsData.publisher}
+                </span>
+                <h3 className="font-bold text-3xl text-secondary">
+                    {recipeDetailsData.title}
+                </h3>
+                <div>
+                    <button
+                        className="btn"
+                        onClick={() => handleAddToFavorite(recipeDetailsData)}
+                    >
+                        {
+                            favoritesList.find(
+                                (item) => item.recipe_id === recipeDetailsData.recipe_id
+                            )
+                                ? "Remove from favorites"
+                                : "Add to favorites"
+                        }
+                    </button>
+                </div>
+                <div>
+                    <span className="font-bold text-2xl">Ingredients:</span>
+                    <ul className="flex flex-col gap-2 mt-4">
+                        {recipeDetailsData.ingredients.map((ingredient, index) => (
+                            <li key={index} className="flex items-center gap-2">
+                                <span className="text-lg">- {ingredient}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-3">
-        <span className="text-sm  text-cyan-700 font-medium">
-          {recipeDetailsData?.publisher}
-        </span>
-        <h3 className="font-bold text-2xl truncate text-black">
-          {recipeDetailsData?.title}
-        </h3>
-        <div>
-          <button
-            className="p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-black text-white"
-            onClick={() => handleAddToFavorite(recipeDetailsData)}
-          >
-            {favoritesList &&
-            favoritesList.length > 0 &&
-            favoritesList.findIndex(
-              (item) => item.recipe_id === recipeDetailsData.recipe_id
-            ) !== -1
-              ? "Remove from favorite"
-              : "add to favorite"}
-          </button>
-        </div>
-        <div>
-          <span className="">Ingredients</span>
-          <ul>
-            {recipeDetailsData?.ingredients.map((ingredient) => (
-              <li key={ingredient.recipe_id}>
-                <span>{ingredient}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Details;
+

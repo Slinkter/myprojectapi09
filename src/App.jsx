@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Home from "./pages/home";
@@ -8,7 +7,7 @@ import Details from "./pages/details";
 const App = () => {
     return (
         <div className=" ">
-            <div className="min-h-screen p-6  text-gray-700 text-lg  border-red-800 border-8 bg-gray-100">
+            <div className="min-h-screen p-4 sm:p-6 bg-bg-base text-text-base text-lg">
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />

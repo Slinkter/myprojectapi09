@@ -1,22 +1,23 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const RecipeItem = ({ item }) => {
   return (
-    <div className="flex flex-col w-80 overflow-hidden p-5 bg-white/75 shadow-xl gap-5 border-2 rounded-2xl  border-white">
+    <div className="card group">
       <div className="h-40 flex justify-center overflow-hidden items-center rounded-xl">
-        <img src={item.image_url} alt={item.title} className="block w-full" />
+        <img src={item.image_url} alt={item.title} className="block w-full transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div>
-        <span className="text-sm text-cyan-700 font-medium">
+        <span className="text-sm text-accent font-medium">
           {item.publisher}
         </span>
-        <h3 className="font-bold  text-2xl truncate text-black">
+        <h3 className="font-bold text-2xl truncate text-secondary transition-colors duration-300 group-hover:text-primary">
           {item.title}
         </h3>
         <Link
           to={`/recipe-item/${item.recipe_id}`}
-          className="text-sm p-3 mt-5 px-8 uppercase rounded-lg font-medium tracking-wider inline-block shadow-md bg-black text-white            "
+          className="btn mt-4 inline-block"
         >
           Recipe Details
         </Link>
@@ -25,4 +26,14 @@ const RecipeItem = ({ item }) => {
   );
 };
 
+RecipeItem.propTypes = {
+    item: PropTypes.shape({
+        image_url: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        publisher: PropTypes.string.isRequired,
+        recipe_id: PropTypes.string.isRequired,
+    }).isRequired,
+};
+
 export default RecipeItem;
+
