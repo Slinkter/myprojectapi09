@@ -28,9 +28,13 @@ const Details = () => {
     if (loading) return <div className="loading-spinner"></div>;
     if (!recipeDetailsData) return <div className="info-message">No recipe details found.</div>;
 
+    const isFavorite = favoritesList.find(
+        (item) => item.recipe_id === recipeDetailsData.recipe_id
+    );
+
     return (
         <div className="container mx-auto py-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div className="h-96 lg:h-auto lg:sticky top-10">
+            <div className="h-96 lg:sticky top-10">
                 <div className="h-full overflow-hidden rounded-xl group">
                     <img
                         src={recipeDetailsData.image_url}
@@ -48,16 +52,14 @@ const Details = () => {
                 </h3>
                 <div>
                     <button
-                        className="btn"
+                        className={`btn ${
+                            isFavorite
+                                ? "bg-primary hover:bg-red-800"
+                                : "hover:bg-primary"
+                        }`}
                         onClick={() => handleAddToFavorite(recipeDetailsData)}
                     >
-                        {
-                            favoritesList.find(
-                                (item) => item.recipe_id === recipeDetailsData.recipe_id
-                            )
-                                ? "Remove from favorites"
-                                : "Add to favorites"
-                        }
+                        {isFavorite ? "Remove from favorites" : "Add to favorites"}
                     </button>
                 </div>
                 <div>
