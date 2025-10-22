@@ -1,3 +1,28 @@
+# myprojectapi09
+
+Proyecto React + Vite para buscar y visualizar recetas (TailwindCSS).
+
+Principales scripts
+
+-   npm run dev — arranca el servidor de desarrollo (vite)
+-   npm run build — build de producción
+-   npm run preview — preview del build
+-   npm run lint — ejecuta ESLint
+
+Estructura clave
+
+-   src/
+    -   api/ — funciones para llamadas a la API
+    -   components/ — componentes UI (feature-based)
+    -   context/ — contexto global
+    -   pages/ — vistas y rutas
+
+Notas y recomendaciones
+
+-   Usa importaciones absolutas con `@/` (configurado en jsconfig.json).
+-   Normaliza nombres de carpetas en minúsculas para evitar problemas en CI (Linux).
+-   Añadir Prettier + ESLint (integración) y Husky para pre-commit.
+
 # API09: Buscador de Recetas 🍲
 
 ## 1. Descripción General
@@ -15,7 +40,8 @@ Puedes probar la aplicación en vivo aquí: **[https://slinkter.github.io/myproj
 -   **Búsqueda de Recetas:** Campo de búsqueda para encontrar recetas por ingrediente o nombre.
 -   **Autocompletado Inteligente:** El buscador ofrece sugerencias en tiempo real para guiar al usuario hacia términos de búsqueda válidos.
 -   **Vista de Detalles:** Al hacer clic en una receta, se muestra una vista detallada con la imagen, el editor, y la lista completa de ingredientes.
--   **Sistema de Favoritos:** Permite a los usuarios guardar sus recetas preferidas. La lista de favoritos es persistente durante la sesión.
+-   **Sistema de Favoritos:** Permite a los usuarios guardar sus recetas preferidas. La lista de favoritos es persistente entre sesiones (almacenada en localStorage).
+-   **Última búsqueda guardada:** La aplicación restaura y ejecuta la última búsqueda realizada al abrir la aplicación.
 -   **Diseño Responsivo (Mobile-First):** La interfaz está diseñada para funcionar y verse bien en cualquier dispositivo, desde móviles hasta ordenadores de escritorio.
 -   **UI Mejorada:** Se han implementado animaciones y transiciones suaves para mejorar la experiencia de usuario, junto con indicadores de carga y mensajes de estado claros.
 
@@ -39,12 +65,14 @@ La arquitectura sigue un modelo basado en componentes con una estricta separaci�
 ## 6. Instalación y Ejecución Local
 
 1.  **Clonar el repositorio:**
+
     ```bash
     git clone https://github.com/slinkter/myprojectapi09.git
     cd myprojectapi09
     ```
 
 2.  **Instalar las dependencias:**
+
     ```bash
     npm install
     ```
