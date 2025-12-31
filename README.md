@@ -1,90 +1,48 @@
-# myprojectapi09
+# Documentación Oficial: FoodRecipe (API09)
 
-Proyecto React + Vite para buscar y visualizar recetas (TailwindCSS).
+Bienvenido a la documentación técnica del proyecto. Este repositorio contiene una Single Page Application (SPA) construida con React y Tailwind CSS para la búsqueda y gestión de recetas de cocina.
 
-Principales scripts
+## 📚 Índice de Documentación
 
--   npm run dev — arranca el servidor de desarrollo (vite)
--   npm run build — build de producción
--   npm run preview — preview del build
--   npm run lint — ejecuta ESLint
+La documentación se organiza siguiendo el ciclo de vida del software:
 
-Estructura clave
+### 1. [Inicio y Alcance](src/docs/01_alcance/PROJECT_OVERVIEW.md)
+Visión general, objetivos del negocio, stakeholders y roadmap inicial.
 
--   src/
-    -   api/ — funciones para llamadas a la API
-    -   components/ — componentes UI (feature-based)
-    -   context/ — contexto global
-    -   pages/ — vistas y rutas
+### 2. [Requerimientos](src/docs/02_requerimientos/REQUIREMENTS.md)
+Requerimientos funcionales, historias de usuario y casos de uso.
 
-Notas y recomendaciones
+### 3. [Arquitectura y Diseño](src/docs/03_arquitectura/ARCHITECTURE.md)
+Diagramas de arquitectura, flujo de datos, estructura de carpetas y decisiones técnicas.
 
--   Usa importaciones absolutas con `@/` (configurado en jsconfig.json).
--   Normaliza nombres de carpetas en minúsculas para evitar problemas en CI (Linux).
--   Añadir Prettier + ESLint (integración) y Husky para pre-commit.
+### 4. [Desarrollo e Implementación](src/docs/04_desarrollo/DEVELOPMENT_GUIDE.md)
+Guías de configuración, estándares de código, sistema de UI (Tailwind) e integración con APIs.
 
-# API09: Buscador de Recetas 🍲
+### 5. [Calidad y Despliegue](src/docs/05_despliegue/DEPLOYMENT.md)
+Estrategia de despliegue (GitHub Pages), linting y aseguramiento de calidad.
 
-## 1. Descripción General
+### 6. [Mantenimiento](src/docs/06_mantenimiento/MAINTENANCE.md)
+Registro de cambios (Changelog), deuda técnica y plan de mantenimiento.
 
-Esta aplicación es un buscador de recetas de cocina que consume datos de la API pública `forkify-api`. La interfaz permite a los usuarios buscar recetas por nombre, ver los detalles de cada una y mantener una lista de favoritos.
+---
 
-El proyecto está construido con React y Vite, aplicando principios de arquitectura de software moderna, con un enfoque en la separación de responsabilidades, una gestión de estado centralizada y una experiencia de usuario fluida y agradable.
+## 🚀 Quick Start
 
-## 2. Demo en Vivo
+```bash
+# Instalar dependencias
+npm install
 
-Puedes probar la aplicación en vivo aquí: **[https://slinkter.github.io/myprojectapi09](https://slinkter.github.io/myprojectapi09)**
+# Iniciar servidor de desarrollo
+npm run dev
 
-## 3. Características Principales
+# Construir para producción
+npm run build
+```
 
--   **Búsqueda de Recetas:** Campo de búsqueda para encontrar recetas por ingrediente o nombre.
--   **Autocompletado Inteligente:** El buscador ofrece sugerencias en tiempo real para guiar al usuario hacia términos de búsqueda válidos.
--   **Vista de Detalles:** Al hacer clic en una receta, se muestra una vista detallada con la imagen, el editor, y la lista completa de ingredientes.
--   **Sistema de Favoritos:** Permite a los usuarios guardar sus recetas preferidas. La lista de favoritos es persistente entre sesiones (almacenada en localStorage).
--   **Última búsqueda guardada:** La aplicación restaura y ejecuta la última búsqueda realizada al abrir la aplicación.
--   **Diseño Responsivo (Mobile-First):** La interfaz está diseñada para funcionar y verse bien en cualquier dispositivo, desde móviles hasta ordenadores de escritorio.
--   **UI Mejorada:** Se han implementado animaciones y transiciones suaves para mejorar la experiencia de usuario, junto con indicadores de carga y mensajes de estado claros.
+## 🛠 Stack Tecnológico
 
-## 4. Tecnologías Utilizadas
-
--   **Framework Frontend:** React 18
--   **Gestión de Estado:** React Context API (`useContext` + `useState`)
--   **Enrutamiento:** React Router DOM v6
--   **Estilos:** Tailwind CSS
--   **Bundler:** Vite
--   **Linting:** ESLint
-
-## 5. Arquitectura y Principios Aplicados
-
-La arquitectura sigue un modelo basado en componentes con una estricta separación entre la lógica de negocio y la capa de presentación.
-
--   **Fuente Única de Verdad:** El estado global (lista de recetas, favoritos, término de búsqueda, sugerencias) se centraliza en `GlobalContext`, asegurando la consistencia de los datos en toda la aplicación.
--   **Inversión de Dependencias:** Los componentes de página (`Home`, `Details`) no dependen de la implementación de la lógica de estado, sino de la abstracción que provee el `GlobalContext`. Esto permite cambiar la lógica interna sin afectar a los componentes.
--   **Mantenibilidad de Estilos:** Se utiliza la directiva `@apply` de Tailwind CSS para consolidar grupos de utilidades en clases de componentes personalizadas (ej. `.card`, `.btn`) dentro de `index.css`, haciendo el código JSX más limpio y los estilos más fáciles de mantener.
-
-## 6. Instalación y Ejecución Local
-
-1.  **Clonar el repositorio:**
-
-    ```bash
-    git clone https://github.com/slinkter/myprojectapi09.git
-    cd myprojectapi09
-    ```
-
-2.  **Instalar las dependencias:**
-
-    ```bash
-    npm install
-    ```
-
-3.  **Ejecutar el servidor de desarrollo:**
-    ```bash
-    npm run dev
-    ```
-
-## 7. Scripts Disponibles
-
--   `npm run dev`: Inicia el servidor de desarrollo de Vite en modo de recarga rápida (HMR).
--   `npm run build`: Compila y empaqueta la aplicación para producción en el directorio `dist/`.
--   `npm run lint`: Ejecuta ESLint para analizar el código en busca de errores y advertencias.
--   `npm run preview`: Inicia un servidor local para previsualizar la compilación de producción.
+- **Core:** React 18, Vite
+- **Estilos:** Tailwind CSS 3
+- **Estado:** Context API
+- **Routing:** React Router DOM 6
+- **Datos:** Forkify API
