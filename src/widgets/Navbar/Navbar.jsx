@@ -1,6 +1,5 @@
-
 import { useContext, useEffect, useRef } from 'react';
-import { GlobalContext } from '../../context/context';
+import { GlobalContext } from '@/entities/recipe/context/RecipeContext';
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {

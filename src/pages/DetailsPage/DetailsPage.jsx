@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { GlobalContext } from '../../context/context';
-import { fetchRecipeDetails } from '../../api';
+import { GlobalContext } from '@/entities/recipe/context/RecipeContext';
+import { fetchRecipeDetails } from '@/shared/api/recipes';
 
-const Details = () => {
+const DetailsPage = () => {
   const { id } = useParams();
   const { favoritesList, handleAddToFavorite } = useContext(GlobalContext);
   const [recipeDetailsData, setRecipeDetailsData] = useState(null);
@@ -66,4 +66,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default DetailsPage;

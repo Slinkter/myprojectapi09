@@ -1,6 +1,7 @@
 # Visión General del Proyecto
 
 ## Resumen Ejecutivo
+
 **FoodRecipe** es una aplicación web interactiva (SPA) diseñada para entusiastas de la cocina que necesitan encontrar inspiración culinaria de forma rápida. La aplicación permite buscar recetas en una base de datos externa, ver detalles completos (ingredientes, editor) y guardar recetas favoritas localmente.
 
 ## Objetivos del Proyecto
@@ -12,20 +13,23 @@
 ## Alcance (Scope)
 
 ### Incluido (In-Scope)
--   Buscador de recetas por término clave.
--   Visualización de lista de resultados.
--   Página de detalle de receta individual.
--   Gestión de favoritos (Agregar/Eliminar).
--   Persistencia local de favoritos y última búsqueda.
--   Diseño responsive (Móvil, Tablet, Desktop).
+
+- Buscador de recetas por término clave.
+- Visualización de lista de resultados.
+- Página de detalle de receta individual.
+- Gestión de favoritos (Agregar/Eliminar).
+- Persistencia local de favoritos y última búsqueda.
+- Diseño responsive (Móvil, Tablet, Desktop).
 
 ### Excluido (Out-of-Scope)
--   Creación de cuentas de usuario / Login (Auth).
--   Base de datos en la nube para favoritos (actualmente LocalStorage).
--   Creación o edición de recetas por parte del usuario.
--   Lista de compras.
+
+- Creación de cuentas de usuario / Login (Auth).
+- Base de datos en la nube para favoritos (actualmente LocalStorage).
+- Creación o edición de recetas por parte del usuario.
+- Lista de compras.
 
 ## Stakeholders
--   **Usuarios Finales:** Personas que cocinan en casa y buscan recetas.
--   **Equipo de Desarrollo:** Frontend Developers encargados del mantenimiento.
--   **Product Owner:** Define las funcionalidades clave (simulado).
+
+- **Usuarios Finales:** Personas que cocinan en casa y buscan recetas.
+- **Equipo de Desarrollo:** Frontend Developers encargados del mantenimiento.
+- **Product Owner:** Define las funcionalidades clave (simulado).

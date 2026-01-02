@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/context';
-import RecipeItem from '../../components/recipe-item';
+import { GlobalContext } from '@/entities/recipe/context/RecipeContext';
+import RecipeCard from '@/entities/recipe/ui/RecipeCard/RecipeCard';
 
-const Home = () => {
+const HomePage = () => {
   const { recipeList, loading, searchParam } = useContext(GlobalContext);
 
   if (loading) return <div className="loading-spinner"></div>;
@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10 animate-fade-in">
       {recipeList && recipeList.length > 0 ? (
-        recipeList.map(item => <RecipeItem key={item.recipe_id} item={item} />)
+        recipeList.map(item => <RecipeCard key={item.recipe_id} item={item} />)
       ) : (
         <div className="info-message">
           <p>
@@ -24,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

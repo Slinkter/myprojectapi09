@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const RecipeItem = ({ item }) => {
+const RecipeCard = ({ item }) => {
   return (
     <div className="card group">
       <div className="h-40 flex justify-center overflow-hidden items-center rounded-xl">
@@ -17,7 +17,7 @@ const RecipeItem = ({ item }) => {
         <h3 className="font-bold text-2xl truncate text-secondary transition-colors duration-300 group-hover:text-primary">
           {item.title}
         </h3>
-        <Link to={`/recipe-item/${item.recipe_id}`} className="btn mt-4 inline-block">
+        <Link to={`/recipe/${item.recipe_id}`} className="btn mt-4 inline-block">
           Recipe Details
         </Link>
       </div>
@@ -25,7 +25,7 @@ const RecipeItem = ({ item }) => {
   );
 };
 
-RecipeItem.propTypes = {
+RecipeCard.propTypes = {
   item: PropTypes.shape({
     image_url: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -35,4 +35,4 @@ RecipeItem.propTypes = {
 };
 
 // 💡 Memoize to avoid unnecessary re-renders when props are stable
-export default React.memo(RecipeItem);
+export default React.memo(RecipeCard);

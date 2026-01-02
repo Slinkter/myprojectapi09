@@ -1,13 +1,13 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import GlobalState from './context/index.jsx';
-import App from './App.jsx';
-import './index.css';
+import RecipeProvider from '@/app/providers/with-recipes.jsx';
+import App from '@/app/App.jsx';
+import '@/app/index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <GlobalState>
+    <RecipeProvider>
       <App />
-    </GlobalState>
+    </RecipeProvider>
   </BrowserRouter>
 );

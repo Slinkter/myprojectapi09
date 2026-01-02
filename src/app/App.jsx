@@ -1,10 +1,10 @@
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-const Navbar = lazy(() => import('./components/navbar'));
-const Home = lazy(() => import('./pages/home'));
-const Favorite = lazy(() => import('./pages/favorites'));
-const Details = lazy(() => import('./pages/details'));
+const Navbar = lazy(() => import('@/widgets/Navbar/Navbar.jsx'));
+const Home = lazy(() => import('@/pages/HomePage/HomePage.jsx'));
+const Favorite = lazy(() => import('@/pages/FavoritesPage/FavoritesPage.jsx'));
+const Details = lazy(() => import('@/pages/DetailsPage/DetailsPage.jsx'));
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/favorites" element={<Favorite />} />
-            <Route path="/recipe-item/:id" element={<Details />} />
+            <Route path="/recipe/:id" element={<Details />} />
           </Routes>
         </Suspense>
       </div>
