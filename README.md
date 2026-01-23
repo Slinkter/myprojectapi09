@@ -755,7 +755,6 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 **Luis Curo**
 
 - GitHub: [@Slinkter](https://github.com/Slinkter)
-- LinkedIn: [Luis Curo](https://www.linkedin.com/in/luiscuro/)
 
 ---
 
@@ -767,14 +766,6 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 - **Tailwind Labs** por Tailwind CSS
 
 ---
-
-## 📞 Soporte
-
-¿Tienes preguntas o problemas?
-
-- 📧 Email: [tu-email@example.com](mailto:tu-email@example.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/Slinkter/myprojectapi09/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/Slinkter/myprojectapi09/discussions)
 
 ---
 

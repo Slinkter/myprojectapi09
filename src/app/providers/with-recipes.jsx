@@ -79,28 +79,24 @@ const RecipeProvider = ({ children }) => {
     handleSearch,
   } = useSearch();
 
-  return (
-    <GlobalContext.Provider
-      value={{
-        // Search feature
-        searchParam,
-        loading,
-        recipeList,
-        suggestions,
-        showSuggestions,
-        setSearchParam,
-        setShowSuggestions,
-        handleSubmit,
-        handleSearchSubmit,
-        handleSearch,
-        // Favorites feature
-        favoritesList,
-        handleAddToFavorite,
-      }}
-    >
-      {children}
-    </GlobalContext.Provider>
-  );
+  const propsValues = {
+    // Search feature
+    searchParam,
+    loading,
+    recipeList,
+    suggestions,
+    showSuggestions,
+    setSearchParam,
+    setShowSuggestions,
+    handleSubmit,
+    handleSearchSubmit,
+    handleSearch,
+    // Favorites feature
+    favoritesList,
+    handleAddToFavorite,
+  };
+
+  return <GlobalContext.Provider value={propsValues}>{children}</GlobalContext.Provider>;
 };
 
 RecipeProvider.propTypes = {
