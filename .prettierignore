@@ -3,4 +3,4 @@ dist
 .git
 coverage
 public
-src/components/Navbar
+
