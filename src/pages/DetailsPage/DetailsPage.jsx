@@ -1,3 +1,58 @@
+/**
+ * Details Page - Recipe Full Information Display
+ *
+ * **Funcionalidad:**
+ * - Muestra información completa de una receta específica
+ * - Carga detalles desde la API usando el ID de la URL
+ * - Permite agregar/quitar la receta de favoritos
+ * - Renderiza imagen, ingredientes, publisher y botón de favorito
+ *
+ * **Flujo de interacción:**
+ * 1. Usuario hace clic en "Recipe Details" desde HomePage o FavoritesPage
+ * 2. React Router navega a "/recipe/:id"
+ * 3. useParams() extrae el ID de la URL
+ * 4. useEffect se ejecuta al montar y cuando cambia el ID
+ * 5. fetchRecipeDetails(id) hace GET a la API
+ * 6. setRecipeDetailsData() actualiza el estado local
+ * 7. Componente renderiza los detalles
+ * 8. Usuario puede hacer clic en "Add to favorites"
+ * 9. handleAddToFavorite() actualiza favoritesList en contexto
+ * 10. Botón cambia de estilo según si es favorito o no
+ *
+ * **Estado y efectos secundarios:**
+ * - **Estados locales:**
+ *   * recipeDetailsData: object | null - datos de la receta
+ *   * loading: boolean - indica si está cargando
+ * - **Efectos secundarios:**
+ *   * useEffect: Ejecuta fetch cuando cambia el ID
+ *   * fetchRecipeDetails(): HTTP GET a API externa
+ * - **Contexto consumido:**
+ *   * favoritesList: para verificar si es favorito
+ *   * handleAddToFavorite: para toggle de favorito
+ *
+ * **Decisiones de diseño:**
+ * - Por qué estado local y no contexto para recipeDetailsData:
+ *   * Los detalles son específicos de esta página
+ *   * No se necesitan en otros componentes
+ *   * Evita contaminar el contexto global
+ * - Por qué CSS Grid (lg:grid-cols-2):
+ *   * Layout 50/50 en desktop (imagen | info)
+ *   * Stack vertical en mobile (mejor UX)
+ *   * Sticky image en desktop (permanece visible al scroll)
+ * - Por qué verificar isFavorite con find():
+ *   * Determina el texto y estilo del botón
+ *   * Más eficiente que includes() con objetos
+ *
+ * **Motivo de existencia:**
+ * - Provee vista detallada de una receta
+ * - Separa la lógica de listado (HomePage) de la de detalle
+ * - Permite deep linking (compartir URL de receta específica)
+ * - Integra la funcionalidad de favoritos en el contexto de detalle
+ *
+ * @component
+ * @returns {JSX.Element} Página de detalles de receta
+ */
+
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { GlobalContext } from '@/entities/recipe/context/RecipeContext';

@@ -1,48 +1,282 @@
+/**
+ * Global Styles - FoodRecipe SPA
+ * 
+ * Sistema de diseño basado en Tailwind CSS utility-first
+ * Paleta de colores semántica con CSS custom properties
+ * Componentes reutilizables en @layer components
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   DESIGN TOKENS - CSS Custom Properties
+   ============================================ */
+
 @layer base {
-    :root {
-        --color-primary: #c53030; /* Red-700 */
-        --color-secondary: #2d3748; /* Gray-800 */
-        --color-accent: #2b6cb0; /* Blue-600 */
-        --color-neutral: #f7fafc; /* Gray-100 */
-        --color-text-base: #4a5568; /* Gray-700 */
-        --color-text-muted: #718096; /* Gray-500 */
-        --color-bg-base: #edf2f7; /* Gray-200 */
-    }
+  :root {
+    /* Primary Colors - Acciones principales */
+    --color-primary: #c53030; /* Red-700 - Botones, hover states */
+    --color-primary-dark: #9b2c2c; /* Red-800 - Hover on primary */
+
+    /* Secondary Colors - Textos y fondos */
+    --color-secondary: #2d3748; /* Gray-800 - Headings, buttons */
+    --color-accent: #2b6cb0; /* Blue-600 - Links, badges */
+
+    /* Neutral Colors - Fondos y borders */
+    --color-neutral: #f7fafc; /* Gray-100 - Cards, inputs */
+    --color-bg-base: #edf2f7; /* Gray-200 - Page background */
+
+    /* Text Colors - Tipografía */
+    --color-text-base: #4a5568; /* Gray-700 - Body text */
+    --color-text-muted: #718096; /* Gray-500 - Secondary text */
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
 }
 
+/* ============================================
+   REUSABLE COMPONENTS
+   ============================================ */
+
 @layer components {
-    .btn {
-        @apply bg-secondary text-neutral px-6 py-2 uppercase rounded-md text-sm font-medium tracking-wider shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300;
-    }
+  /* ----------------
+     BUTTONS
+     ---------------- */
 
-    .card {
-        @apply flex flex-col w-full sm:w-80 overflow-hidden p-5 bg-neutral shadow-xl gap-5 border-2 rounded-2xl border-white transition-transform duration-300 hover:scale-105;
-    }
+  /**
+   * .btn - Botón principal
+   * Uso: Acciones primarias (submit, navigate, etc.)
+   */
+  .btn {
+    @apply bg-secondary text-neutral px-6 py-2.5 uppercase rounded-md text-sm font-medium tracking-wider shadow-md 
+           hover:bg-primary hover:shadow-lg
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary 
+           transition-all duration-300 ease-in-out
+           active:scale-95;
+  }
 
-      /* Search input group styles */
-      .search-input-left {
-        @apply bg-neutral bg-opacity-75 p-3 pl-8 rounded-l-full outline-none w-full md:w-80 shadow-lg focus:shadow-primary transition-all duration-300 ease-in-out;
-      }
-    
-        .search-btn-right {
-          @apply bg-secondary text-neutral px-6 py-3 uppercase rounded-r-full text-sm font-medium tracking-wider shadow-md hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300;
-        }
-      
-        /* Suggestions list styles */
-          .suggestions-list {
-            @apply absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-lg z-10 overflow-hidden max-h-60 overflow-y-auto;
-          }      
-        .suggestion-item {
-          @apply p-3 cursor-pointer hover:bg-neutral transition-colors duration-200;
-        }      .loading-spinner {
-        @apply w-16 h-16 border-4 border-dashed rounded-full animate-spin border-primary mx-auto mt-20;
-      }
-    
-      .info-message {
-        @apply lg:text-4xl text-xl text-center text-secondary font-extrabold;
-      }
+  /**
+   * .btn-outline - Botón secundario
+   * Uso: Acciones secundarias (cancel, back, etc.)
+   */
+  .btn-outline {
+    @apply border-2 border-secondary text-secondary px-6 py-2.5 uppercase rounded-md text-sm font-medium tracking-wider
+           hover:bg-secondary hover:text-neutral
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary
+           transition-all duration-300 ease-in-out
+           active:scale-95;
+  }
+
+  /* ----------------
+     CARDS
+     ---------------- */
+
+  /**
+   * .card - Card container principal
+   * Estructura: Header + Body + Footer (opcional)
+   * Uso: RecipeCard, cualquier contenido en card
+   */
+  .card {
+    @apply flex flex-col w-full sm:w-80 overflow-hidden bg-neutral shadow-xl rounded-2xl border-2 border-white
+           transition-all duration-300 ease-in-out
+           hover:scale-105 hover:shadow-2xl;
+  }
+
+  /**
+   * .card-header - Encabezado de card (imagen o título)
+   */
+  .card-header {
+    @apply relative overflow-hidden;
+  }
+
+  /**
+   * .card-body - Cuerpo principal de card
+   */
+  .card-body {
+    @apply p-5 flex-1 flex flex-col gap-3;
+  }
+
+  /**
+   * .card-footer - Footer de card (acciones)
+   */
+  .card-footer {
+    @apply p-5 pt-0 flex items-center justify-between;
+  }
+
+  /* ----------------
+     SEARCH BAR
+     ---------------- */
+
+  /**
+   * .search-input-left - Input de búsqueda (lado izquierdo)
+   * Parte de un grupo con .search-btn-right
+   */
+  .search-input-left {
+    @apply bg-neutral bg-opacity-75 p-3 pl-8 rounded-l-full outline-none w-full md:w-80 shadow-lg 
+           text-text-base placeholder-text-muted
+           focus:shadow-primary focus:bg-white
+           transition-all duration-300 ease-in-out;
+  }
+
+  /**
+   * .search-btn-right - Botón de búsqueda (lado derecho)
+   * Forma grupo con .search-input-left
+   */
+  .search-btn-right {
+    @apply bg-secondary text-neutral px-6 py-3 uppercase rounded-r-full text-sm font-medium tracking-wider shadow-md 
+           hover:bg-primary 
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary 
+           transition-all duration-300 ease-in-out
+           active:scale-95;
+  }
+
+  /* ----------------
+     SUGGESTIONS DROPDOWN
+     ---------------- */
+
+  /**
+   * .suggestions-list - Dropdown de sugerencias
+   * Aparece debajo del search input
+   */
+  .suggestions-list {
+    @apply absolute top-full left-0 right-0 mt-2 bg-white rounded-lg shadow-xl z-10 
+           overflow-hidden max-h-60 overflow-y-auto
+           border border-gray-200;
+  }
+
+  /**
+   * .suggestion-item - Item individual en dropdown
+   */
+  .suggestion-item {
+    @apply p-3 cursor-pointer text-text-base
+           hover:bg-neutral hover:text-primary
+           transition-colors duration-200 ease-in-out
+           border-b border-gray-100 last:border-b-0;
+  }
+
+  /* ----------------
+     LOADING STATES
+     ---------------- */
+
+  /**
+   * .loading-spinner - Spinner de carga
+   * Uso: Mientras se cargan datos de API
+   */
+  .loading-spinner {
+    @apply w-16 h-16 border-4 border-dashed rounded-full animate-spin border-primary mx-auto mt-20;
+  }
+
+  /**
+   * .loading-skeleton - Skeleton loader para cards
+   * Uso: Placeholder mientras carga contenido
+   */
+  .loading-skeleton {
+    @apply animate-pulse bg-gray-300 rounded;
+  }
+
+  /* ----------------
+     EMPTY & ERROR STATES
+     ---------------- */
+
+  /**
+   * .info-message - Mensaje informativo (empty state)
+   * Uso: "No results found", "Search for recipes"
+   */
+  .info-message {
+    @apply lg:text-4xl text-xl text-center text-secondary font-extrabold
+           py-20 px-4;
+  }
+
+  /**
+   * .error-message - Mensaje de error
+   * Uso: Errores de API, network errors
+   */
+  .error-message {
+    @apply text-center text-primary font-semibold text-lg
+           bg-red-50 border-2 border-primary rounded-lg p-6 mx-auto max-w-md;
+  }
+
+  /**
+   * .empty-state - Estado vacío con icono
+   * Uso: Listas vacías, no favoritos
+   */
+  .empty-state {
+    @apply flex flex-col items-center justify-center gap-4 py-20 px-4;
+  }
+
+  /* ----------------
+     NAVIGATION
+     ---------------- */
+
+  /**
+   * .nav-link - Links de navegación
+   * Uso: NavLink en Navbar
+   */
+  .nav-link {
+    @apply text-text-base font-medium hover:text-primary transition-colors duration-200;
+  }
+
+  /* ----------------
+     BADGES
+     ---------------- */
+
+  /**
+   * .badge - Badge pequeño
+   * Uso: Publisher, tags, counts
+   */
+  .badge {
+    @apply inline-block px-3 py-1 text-xs font-semibold rounded-full
+           bg-accent text-white;
+  }
+
+  /* ----------------
+     GRID LAYOUTS
+     ---------------- */
+
+  /**
+   * .recipe-grid - Grid responsive para recetas
+   * Mobile: 1 columna, Tablet: 2 columnas, Desktop: 3-4 columnas
+   */
+  .recipe-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 
+           py-8 container mx-auto;
+  }
+}
+
+/* ============================================
+   CUSTOM ANIMATIONS
+   ============================================ */
+
+@layer utilities {
+  /**
+   * Fade in animation
+   * Ya definida en tailwind.config.js
+   */
+  .animate-fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  /**
+   * Slide up animation
+   */
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+}
